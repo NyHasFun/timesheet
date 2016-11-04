@@ -1,9 +1,19 @@
 window.onload = function() {
   console.log('hello');
 }
-var p_in = document.querySelector('.punch_in')
-var p_out = document.querySelector('.punch_out')
+var punchtime = document.querySelector('.punchtime')
 
-p_in.addEventListener('click', function() {
-  console.log(Date());
-})
+punchtime.addEventListener('click', addTimeStamp)
+
+
+function addTimeStamp(e) {
+  var timeStamp = Date()
+  console.log(timeStamp);
+}
+
+//ajax request
+function request(methos, url, callback) {
+
+  var r = new XMLHttpRequest()
+
+}
