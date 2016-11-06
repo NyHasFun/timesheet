@@ -1,3 +1,27 @@
+/*
+body
+table
+*/
+
+/*
+BODY
+*/
+
 body{
   text-align: center;
+}
+
+/*
+TABLE
+*/
+table{
+  margin: 0px auto;
+}
+
+th{
+  text-align: center;
+}
+
+td{
+  padding: 10px ;
 }

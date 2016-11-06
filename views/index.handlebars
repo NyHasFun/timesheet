@@ -1,2 +1,39 @@
 <h1>Nyasha's Timesheet</h1>
 <input type="button" value="Punch Time" class = 'punchtime' data = 'in'>
+<br>
+<table>
+  <tr>
+    <th></th><th></th>
+    <th>Start Time</th>
+    <th>End Time</th>
+    <th>Productivity</th>
+  </tr>
+  {{#if shifts.length}}
+    {{#each shifts}}
+    <tr>
+      <td>
+        <a href="/shifts/edit/{{id}}">&#9998;</a>
+      </td>
+      <td>
+        <a href="/shifts/delete/{{id}}">&#10005;</a>
+      </td>
+      <td>
+        <div class = 'js_time' hidden>{{startTime}}</div>
+        <div class = 'ppl_time'></div>
+      </td>
+      <td>
+        <div class = 'js_time' hidden>{{endTime}}</div>
+        <div class = 'ppl_time'></div>
+      </td>
+      <td>
+        <div class = 'productivity' hidden>{{productivity}}</div>
+        <div class = 'stars'></div>
+      </td>
+    </tr>
+    {{/each}}
+  {{else}}
+    <p>
+      No records in database
+    </p>
+  {{/if}}
+</table>
