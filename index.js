@@ -73,28 +73,18 @@ app.post('/aws_in', function(req, res){
 app.post('/clockout', function(req, res){
   console.log('clockout');
   Shift.findOne({}, {}, {sort: {startTime: -1}}, function(err, shift) {
+    var currentShift
     if (shift.endTime) {
-      console.log(shift,'new');
-      var newShift = new Shift({
-        endTime: Date.parse(req.body.endTime)
-      })
-      newShift.save()
+      currentShift = new Shift()
     }else{
-      console.log(shift,'old');
-      var oldShift = shift
-      shift.endTime = Date.parse(req.body.endTime)
-      oldShift.save()
+      currentShift = shift
     }
+    currentShift.endTime = Date()
+    currentShift.save()
   })
   res.send({redirect: '/'})
 })
 
-app.post('/aws_out', function(req, res){
-  var newShift = new Shift({
-    endTime: Date()
-  })
-  newShift.save()
-})
 
 app.listen(process.env.PORT || 3000 , function() {
   console.log('listening on port 3000');
