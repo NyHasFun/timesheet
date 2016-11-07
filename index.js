@@ -56,22 +56,21 @@ app.get('/shifts/delete/:id', function(req, res){
 
 app.post('/shifts', function(req, res){
   var newShift = new Shift({
-    startTime: Date.parse(req.body.startTime)
+    startTime: Date.parse(req.body.startTime),
+    endTime: Date.parse(req.body.endTime)
   })
   newShift.save()
-  console.log("New Shift Started at",newShift.startTime)
+  console.log(newShift)
   res.send({redirect: '/'})
 })
 
-app.post('/shift', function(req, res){
+app.post('/aws_in', function(req, res){
   var newShift = new Shift({
     startTime: Date()
   })
   newShift.save()
-  console.log("New Shift Started at",newShift.startTime)
-  res.send({redirect: '/'})
 })
 
-app.listen(process.env.PORT || 3000, function() {
+app.listen(process.env.PORT || 3000 , function() {
   console.log('listening on port 3000');
 })

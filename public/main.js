@@ -4,17 +4,24 @@
 // stars
 
 
-//Punchtime
-var punchtime = document.querySelector('.punchtime')
+//punchtime
+var clockins = document.querySelectorAll('.punchtime')
 
-punchtime.addEventListener('click', addTimeStamp)
+for (var i = 0; i < clockins.length; i++) {
+  clockins[i].addEventListener('click', addTimeStamp)
+}
 
 function addTimeStamp(e) {
   var timeStamp = new Date()
+  if(this.dataset.punchtype === 'in'){
+    time = {startTime: timeStamp}
+  }else if(this.dataset.punchtype === 'out'){
+    time = {endTime: timeStamp}
+  };
   $.ajax({
     type: 'POST',
     url: '/shifts',
-    data: {startTime: timeStamp},
+    data: time,
     success: function(data, textStatus, jqXHR){
       if(typeof data.redirect == 'string'){
         window.location = data.redirect
@@ -22,6 +29,7 @@ function addTimeStamp(e) {
     }
   })
 }
+
 
 //HandleTime
 var js_time = document.querySelectorAll('.js_time')
