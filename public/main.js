@@ -4,25 +4,36 @@
 // stars
 
 
-//punchtime
-var clockins = document.querySelectorAll('.punchtime')
+//CLOCK-IN
+var clockin = document.querySelector('.clockin')
 
-for (var i = 0; i < clockins.length; i++) {
-  clockins[i].addEventListener('click', addTimeStamp)
-}
+clockin.addEventListener('click', addTimeStamp)
 
 function addTimeStamp(e) {
   var timeStamp = new Date()
-  var time =  {}
-  if(this.dataset.punchtype === 'in'){
-    time = {startTime: timeStamp}
-  }else if(this.dataset.punchtype === 'out'){
-    time = {endTime: timeStamp}
-  };
   $.ajax({
     type: 'POST',
-    url: '/shifts',
-    data: time,
+    url: '/clockin',
+    data: {startTime: timeStamp},
+    success: function(data, textStatus, jqXHR){
+      if(typeof data.redirect == 'string'){
+        window.location = data.redirect
+      }
+    }
+  })
+}
+
+//CLOCK-OUT
+var clockout = document.querySelector('.clockout')
+
+clockout.addEventListener('click', addTimeStamp)
+
+function addTimeStamp(e) {
+  var timeStamp = new Date()
+  $.ajax({
+    type: 'POST',
+    url: '/clockout',
+    data: {endTime: timeStamp},
     success: function(data, textStatus, jqXHR){
       if(typeof data.redirect == 'string'){
         window.location = data.redirect

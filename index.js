@@ -54,10 +54,9 @@ app.get('/shifts/delete/:id', function(req, res){
   })
 })
 
-app.post('/shifts', function(req, res){
+app.post('/clockin', function(req, res){
   var newShift = new Shift({
-    startTime: Date.parse(req.body.startTime),
-    endTime: Date.parse(req.body.endTime)
+    startTime: Date.parse(req.body.startTime)
   })
   newShift.save()
   console.log(newShift)
@@ -69,6 +68,25 @@ app.post('/aws_in', function(req, res){
     startTime: Date()
   })
   newShift.save()
+})
+
+app.post('/clockout', function(req, res){
+  console.log('clockout');
+  Shift.findOne({}, {}, {sort: {startTime: -1}}, function(err, shift) {
+    if (shift.endTime) {
+      console.log(shift,'new');
+      var newShift = new Shift({
+        endTime: Date.parse(req.body.endTime)
+      })
+      newShift.save()
+    }else{
+      console.log(shift,'old');
+      var oldShift = shift
+      shift.endTime = Date.parse(req.body.endTime)
+      oldShift.save()
+    }
+  })
+  res.send({redirect: '/'})
 })
 
 app.post('/aws_out', function(req, res){
