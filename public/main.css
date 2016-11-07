@@ -1,6 +1,7 @@
 /*
 body
 table
+countdown
 */
 
 /*
@@ -10,7 +11,9 @@ BODY
 body{
   text-align: center;
 }
-
+#clockdiv{
+  font-size: 400%;
+}
 /*
 TABLE
 */

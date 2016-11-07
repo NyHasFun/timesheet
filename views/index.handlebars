@@ -2,6 +2,15 @@
 <input type="button" value="Clock In" class = 'clockin'>
 <input type="button" value="Clock Out" class = 'clockout'>
 <br>
+
+<div class="deadline" hidden>
+  {{#each shifts}}
+    {{#if @first}} {{startTime}} {{/if}}
+  {{/each}}
+</div>
+
+{{> clock}}
+
 <table>
   <tr>
     <th></th><th></th>

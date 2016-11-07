@@ -1,7 +1,8 @@
 
-//  punchtime
+// clockin
 // timeStamp
 // stars
+// COUNTDOWN
 
 
 //CLOCK-IN
@@ -103,6 +104,58 @@ function createStars(number, location) {
     location.innerHTML += '&#10025;'
   }
 }
+
+//COUNTDOWN
+
+var deadline = document.querySelector('.deadline').innerHTML;
+
+function getTimeRemaining(endtime){
+  var t = Date.parse(endtime)+(8*60*60*1000) - Date.parse(new Date());
+  var seconds = Math.floor( (t/1000) % 60 );
+  var minutes = Math.floor( (t/1000/60) % 60 );
+  var hours = Math.floor( (t/(1000*60*60)) % 24);
+  var days = Math.floor( t/(1000*60*60*24) );
+  return {
+    'total': t,
+    'days': days,
+    'hours': hours,
+    'minutes': minutes,
+    'seconds': seconds
+  };
+}
+
+getTimeRemaining(deadline).minutes
+
+function initializeClock(id, endtime){
+  var clock = document.getElementById(id);
+  var daysSpan = clock.querySelector('.days');
+  var hoursSpan = clock.querySelector('.hours');
+  var minutesSpan = clock.querySelector('.minutes');
+  var secondsSpan = clock.querySelector('.seconds');
+  var offSet = 0
+  function updateClock(){
+  var t = getTimeRemaining(endtime);
+  if (t.total>0) {
+    daysSpan.innerHTML = t.days;
+    hoursSpan.innerHTML = t.hours;
+    minutesSpan.innerHTML = t.minutes;
+    secondsSpan.innerHTML = ('0' + t.seconds).slice(-2);
+  }
+
+
+  if(t.total<=0){
+    clock.innerHTML = "Deadline has passed"
+    clearInterval(timeinterval);
+  }
+}
+
+updateClock(); // run function once at first to avoid delay
+var timeinterval = setInterval(updateClock,1000);
+}
+
+initializeClock('clockdiv', deadline);
+
+
 
 
 fixTimeStamp()
