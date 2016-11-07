@@ -13,6 +13,7 @@ for (var i = 0; i < clockins.length; i++) {
 
 function addTimeStamp(e) {
   var timeStamp = new Date()
+  var time =  {}
   if(this.dataset.punchtype === 'in'){
     time = {startTime: timeStamp}
   }else if(this.dataset.punchtype === 'out'){

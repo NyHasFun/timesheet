@@ -71,6 +71,13 @@ app.post('/aws_in', function(req, res){
   newShift.save()
 })
 
+app.post('/aws_out', function(req, res){
+  var newShift = new Shift({
+    endTime: Date()
+  })
+  newShift.save()
+})
+
 app.listen(process.env.PORT || 3000 , function() {
   console.log('listening on port 3000');
 })
