@@ -85,7 +85,6 @@ app.post('/clockout', function(req, res){
   res.send({redirect: '/'})
 })
 
-
 app.listen(process.env.PORT || 3000 , function() {
   console.log('listening on port 3000');
 })
