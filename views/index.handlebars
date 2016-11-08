@@ -9,7 +9,12 @@
   {{/each}}
 </div>
 
-{{> clock}}
+{{#each shifts}}
+  {{#if @first.endTime}} {{> clock}} {{/if}}
+{{/each}}
+
+
+
 
 <table>
   <tr>

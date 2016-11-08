@@ -56,18 +56,10 @@ app.get('/shifts/delete/:id', function(req, res){
 
 app.post('/clockin', function(req, res){
   var newShift = new Shift({
-    startTime: Date.parse(req.body.startTime)
-  })
-  newShift.save()
-  console.log(newShift)
-  res.send({redirect: '/'})
-})
-
-app.post('/aws_in', function(req, res){
-  var newShift = new Shift({
     startTime: Date()
   })
   newShift.save()
+  res.send({redirect: '/'})
 })
 
 app.post('/clockout', function(req, res){
