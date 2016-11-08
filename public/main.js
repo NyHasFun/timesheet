@@ -98,12 +98,20 @@ function toStars() {
 
 function createStars(number, location) {
   for (var i = 0; i < number; i++) {
-    location.innerHTML += '&#10029;'
+    location.innerHTML += '&#10029;';
+    location.addEventListener("mouseover",eventHandler(location))
   }
   for (var i = 0; i < 5-number; i++) {
     location.innerHTML += '&#10025;'
+    location.addEventListener("mouseover",eventHandler(location))
   }
 }
+
+function eventHandler() {
+  location.innerHTML = ':)'
+}
+
+
 
 //COUNTDOWN
 
@@ -113,11 +121,9 @@ function getTimeRemaining(endtime){
   var t = Date.parse(endtime)+(8*60*60*1000) - Date.parse(new Date());
   var seconds = Math.floor( (t/1000) % 60 );
   var minutes = Math.floor( (t/1000/60) % 60 );
-  var hours = Math.floor( (t/(1000*60*60)) % 24);
-  var days = Math.floor( t/(1000*60*60*24) );
+  var hours = Math.floor( (t/(1000*60*60)));
   return {
     'total': t,
-    'days': days,
     'hours': hours,
     'minutes': minutes,
     'seconds': seconds
@@ -128,23 +134,19 @@ getTimeRemaining(deadline).minutes
 
 function initializeClock(id, endtime){
   var clock = document.getElementById(id);
-  var daysSpan = clock.querySelector('.days');
   var hoursSpan = clock.querySelector('.hours');
   var minutesSpan = clock.querySelector('.minutes');
   var secondsSpan = clock.querySelector('.seconds');
-  var offSet = 0
   function updateClock(){
   var t = getTimeRemaining(endtime);
   if (t.total>0) {
-    daysSpan.innerHTML = t.days;
     hoursSpan.innerHTML = t.hours;
     minutesSpan.innerHTML = t.minutes;
     secondsSpan.innerHTML = ('0' + t.seconds).slice(-2);
   }
 
-
   if(t.total<=0){
-    clock.innerHTML = "Deadline has passed"
+    clock.innerHTML = "time to leave!"
     clearInterval(timeinterval);
   }
 }
